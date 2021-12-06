@@ -2,7 +2,7 @@ import EmployeesListItem from "../employees-list-item/employees-list-item";
 
 import './employees-list.css';
 
-const EmployeesList = ({data, onDelete}) => {
+const EmployeesList = ({data, onDelete, onToggleIncrease, onToggleRise}) => {
 
 
     const elements = data.map(item => {
@@ -11,7 +11,9 @@ const EmployeesList = ({data, onDelete}) => {
             <EmployeesListItem 
             key={id}
             {...itemProps} // {...item},  name={item.name} salary={item.salary} increase={item.increase} получится тоже самое как с props Spreфd - оператор
-            onDelete={() => onDelete(id)}/>
+            onDelete={() => onDelete(id)}
+            onToggleIncrease={() => onToggleIncrease(id)}
+            onToggleRise={() => onToggleRise(id)}/> 
         )
     })
 
