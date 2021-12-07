@@ -13,9 +13,9 @@ class App extends Component {
     super(props);
     this.state= {
       data: [
-        {name: 'Ivan', salary: '500', increase: false, rise: true, id: 1},
-        {name: 'Boris', salary: '15000', increase: true, rise: false, id: 2},
-        {name: 'Gena', salary: '1400', increase: false, rise: false, id: 3}    // объекты на странице
+        {name: 'Ivan', salary: '500', increase: false, rise: false, id: 1},
+        {name: 'Boris', salary: '15000', increase: false, rise: false, id: 2}, // объекты на странице
+        {name: 'Gena', salary: '1400', increase: false, rise: false, id: 3}    
         
       ] 
     } 
@@ -32,11 +32,12 @@ class App extends Component {
         // const index = data.findIndex(elem => elem.id === id); // поиск объекта 
         // const before = data.slice(0, index); // сохраняем старй объект и не вредим старому, не нарушая принцип иммутабельности
         // const after = data.slice(index + 1);
-
         // const newArr = [...before, ...after]; //ES6 создание нового массива
 
+        
+        // 2) второй способ удаления объектов
         return {
-          data: data.filter(item => item.id !== id) // 2) второй способ удаления объектов
+          data: data.filter(item => item.id !== id) 
         }
     })
   }
@@ -57,21 +58,52 @@ class App extends Component {
           }
       });
     }
+    
+    //печенька
 
     onToggleIncrease = (id) => {
-        console.log(`Increase this ${id}`)
+        // this.setState(({data}) => {
+        //   const index = data.findIndex(elem => elem.id === id)
+
+        //   const old = data[index]
+        //   const newItem = {...old, increase: !old.increase};
+        //   const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)];
+        //     return {
+        //       data: newArr
+        //     }
+        // })
+
+
+        this.setState(({data}) => ({
+            data: data.map(item => {     // map создает новый массив
+              if (item.id === id) {
+                return {...item, increase: !item.increase}
+              }
+                return item;
+            })   
+        }))
     }
+
+    //имя сотрудника
 
     onTggleRise = (id) => {
-        console.log(`Rise this ${id}`)
+      this.setState(({data}) => ({
+        data: data.map(item => {     // map создает новый массив
+          if (item.id === id) {
+            return {...item, rise: !item.rise}
+          }
+            return item;
+        })   
+      }))
     }
 
-
-
+    
     render() {
+      const employees = this.state.data.length;
+      const increased = this.state.data.filter(item => item.increase).length;
       return (
         <div className="app">
-            <AppInfo />
+            <AppInfo employees={employees} increased={increased}/>
   
             <div className="search-panel">
                 <SearchPanel/>
