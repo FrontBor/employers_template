@@ -13,11 +13,13 @@ class App extends Component {
     super(props);
     this.state= {
       data: [
-        {name: 'Ivan', salary: '500', increase: false, rise: false, id: 1},
+        {name: 'Ivan', salary: '500', increase: false, rise: true, id: 1},
         {name: 'Boris', salary: '15000', increase: false, rise: false, id: 2}, // объекты на странице
         {name: 'Gena', salary: '1400', increase: false, rise: false, id: 3}    
         
-      ] 
+      ],
+      term: '',
+      filter: 'all' 
     } 
     this.maxId = 4;
   }
@@ -97,21 +99,57 @@ class App extends Component {
       }))
     }
 
+
+    //поиск сотрудников
+
+    searchEmo = (items, term) => {
+        if (term.length === 0) {
+          return items;
+        }
+        return items.filter(item => {
+          return item.name.indexOf(term) > -1
+        })
+    }
+
+    onUpdateSearch = (term) => {
+      this.setState({term});
+    }
+
+    //фильтры поиска
+
+    filterPost = (items, filter) => {
+      switch (filter) {
+        case 'rise':
+              return items.filter(item => item.rise);
+        case 'moreThen1000':
+              return items.filter(item => item.salary > 1000);
+        default:
+              return items;      
+      }
+    }
+
+    onFilterSelect = (filter) => {
+      this.setState({filter});      
+    }
     
     render() {
+      const {data, term, filter} = this.state
       const employees = this.state.data.length;
       const increased = this.state.data.filter(item => item.increase).length;
+      const visidleData = this.filterPost(this.searchEmo(data, term), filter); //возвращает отфильстрованный массив по поиску
       return (
         <div className="app">
             <AppInfo employees={employees} increased={increased}/>
   
             <div className="search-panel">
-                <SearchPanel/>
-                <AppFilter/>
+                <SearchPanel onUpdateSearch={this.onUpdateSearch}/>
+                <AppFilter 
+                  filter={filter} 
+                  onFilterSelect={this.onFilterSelect}/>
             </div>
             
             <EmployeesList 
-                data={this.state.data} 
+                data={visidleData} 
                 onDelete={this.deleteItem}
                 onToggleIncrease={this.onToggleIncrease}
                 onToggleRise={this.onTggleRise}/>
