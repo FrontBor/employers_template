@@ -1,4 +1,12 @@
+@import '../../veriables.scss';
 
+.add-form {
+    margin-top: 20px;
+        input {
+            width: 350px;
+            margin-right: 20px;
+        }
+}
 
 .app-add-form {
     margin-top: 30px;
@@ -7,13 +15,4 @@
     border-radius: 4px;
     box-shadow: 15px 15px 30px rgba(0,0,0, .15);
     color: #fff;
-}
-
-.add-form {
-    margin-top: 20px;
-}
-
-.add-form input {
-    width: 350px;
-    margin-right: 20px;
 }
