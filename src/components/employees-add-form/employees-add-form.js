@@ -1,6 +1,13 @@
 import { Component } from 'react';
+import styled from "styled-components";
 // import './employees-add-form.css';
 import './employees-add-form.scss';
+
+    const Submite = styled.button`
+        border-radius: 10px;
+        background-color: #8FBC8F;
+        
+    `;
 
     class EmployeesAddForm extends Component{
         constructor(props) {
@@ -11,6 +18,8 @@ import './employees-add-form.scss';
             }
         }
         
+        
+
         onValueChange = (e) => {
             this.setState({
                 [e.target.name]: e.target.value
@@ -27,6 +36,7 @@ import './employees-add-form.scss';
             })
         }
 
+        
         
 
         render() {
@@ -51,8 +61,8 @@ import './employees-add-form.scss';
                         value={salary}
                         onChange={this.onValueChange}/>
 
-                    <button type="submit"
-                            className="btn btn-outline-light">Добавить</button>
+                    <Submite type="submit"
+                            className="btn btn-outline-light">Добавить</Submite>
                 </form>
             </div>
         )

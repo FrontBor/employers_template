@@ -31,7 +31,7 @@ const EmployeesListItem = (props) => {
                 <button type="button"
                         className="btn-trash btn-sm "
                         onClick={onDelete}
-                        style={{color: 'green', opacity: 0.6}}>   {// свойства стилей inline style
+                        style={{color: 'red', opacity: 0.6}}>   {// свойства стилей inline style
                     <i className="fas fa-trash"></i> }  
                 </button>
                 <i className="fas fa-star"></i>

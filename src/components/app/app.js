@@ -1,4 +1,5 @@
 import { Component } from 'react'; 
+import styled from "styled-components";
 
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
@@ -7,6 +8,10 @@ import EmployeesList from '../employees-list/employees-list';
 import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
+
+const Info = styled.div`
+    background-color: #20B2AA; 
+`;
 
 class App extends Component {
   constructor(props) {
@@ -131,6 +136,8 @@ class App extends Component {
     onFilterSelect = (filter) => {
       this.setState({filter});      
     }
+
+    
     
     render() {
       const {data, term, filter} = this.state
@@ -138,7 +145,7 @@ class App extends Component {
       const increased = this.state.data.filter(item => item.increase).length;
       const visidleData = this.filterPost(this.searchEmo(data, term), filter); //возвращает отфильстрованный массив по поиску
       return (
-        <div className="app">
+        <Info className="app">
             <AppInfo employees={employees} increased={increased}/>
   
             <div className="search-panel">
@@ -154,7 +161,7 @@ class App extends Component {
                 onToggleIncrease={this.onToggleIncrease}
                 onToggleRise={this.onTggleRise}/>
             <EmployeesAddForm onAdd={this.addItem}/>
-        </div>
+        </Info>
       );
     }
   }
