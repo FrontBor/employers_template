@@ -1,3 +1,5 @@
+import styled from "styled-components";
+
 import "./app-filter.css";
 
 const AppFilter = (props) => {
@@ -7,16 +9,23 @@ const AppFilter = (props) => {
         {name: 'moreThen1000', lable: 'З/П больше 1000$'}      
     ]
 
+    const Wrapper = styled.button`  
+        color: #ffffff;
+        background-color: #8FBC8F; 
+    `;
+
+    
+
     const buttons = buttonsData.map(({name, lable}) => {
         const active = props.filter === name;
         const clazz = active ? 'btn-light' : 'btn-outline-light';
         return(
-            <button type="button"
+            <Wrapper type="button"
                     className={`btn ${clazz}`}
                     key={name}
                     onClick={() => props.onFilterSelect(name)}>
                     {lable}
-            </button>
+            </Wrapper>
         )
     })
 
